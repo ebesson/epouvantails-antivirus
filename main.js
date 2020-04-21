@@ -1,3 +1,10 @@
+var customOptions =  {    
+    'maxWidth': String.valueOf((screen.width/2)-5),
+    'width': '200',
+    'maxHeight': String.valueOf((screen.height/2)-5),
+    'height': 700
+}
+
 function createMap(elemId, centerLat, centerLng, zoom) {
     var map = new L.Map(elemId);
 
@@ -19,7 +26,12 @@ function createMap(elemId, centerLat, centerLng, zoom) {
 }
 
 function addMarker(map, latLng, onClick) {
+    var photoImg = "https://static.pexels.com/photos/189349/pexels-photo-189349.jpeg";
     var marker = L.marker(latLng).addTo(map);
+    marker.bindPopup('<img  style="max-height:'+ (screen.height-70) +'px;max-width:'+ (screen.width-70) +'px;" src="' + photoImg + '"/>', customOptions).openPopup();
+    marker.on('click', function(e){
+        map.setView([e.latlng.lat, e.latlng.lng]);
+    });
     return marker;
 }
 
